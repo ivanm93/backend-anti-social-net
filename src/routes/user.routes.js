@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginUser, verifyEmail } from "../controllers/user.controller.js";
+import { loginUser } from "../controllers/user.controller.js";
 
 import {
     getUsers,
@@ -19,7 +19,6 @@ const router = Router();
 router.get("/", getUsers);
 router.post("/login", loginUser);
 router.post("/", validateUser, createUser);
-router.get("/verify/:token", verifyEmail); 
 
 router.post("/follow", followUser);
 router.delete("/unfollow", unfollowUser);
