@@ -17,7 +17,13 @@ dotenv.config();
 const app = express();
 const swaggerDocument = YAML.load("./docs/swagger.yaml");
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://anti-social-six.vercel.app'
+  ],
+  credentials: true
+}))
 app.use(express.json());
 
 connectDB();
