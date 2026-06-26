@@ -5,7 +5,8 @@ import {
     getCommentById,
     createComment,
     updateComment,
-    deleteComment
+    deleteComment, 
+    toggleLikeComment
 } from "../controllers/comment.controller.js";
 
 import { validateObjectId } from "../middlewares/validateObjectId.js";
@@ -44,5 +45,7 @@ router.delete(
     validateObjectId,
     deleteComment
 );
+
+router.post("/:id/like", validateObjectId, toggleLikeComment)
 
 export default router;

@@ -22,6 +22,30 @@ export const getComments = async (req, res) => {
     }
 };
 
+export const toggleLikeComment = async (req, res) => {
+  try {
+    const { userId } = req.body
+    const comment = await Comment.findById(req.params.id)
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Comentario no encontrado' })
+    }
+
+    const alreadyLiked = comment.likes.includes(userId)
+
+    if (alreadyLiked) {
+      comment.likes.pull(userId)
+    } else {
+      comment.likes.push(userId)
+    }
+
+    await comment.save()
+    res.status(200).json(comment)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
 export const getCommentById = async (req, res) => {
     try {
 
