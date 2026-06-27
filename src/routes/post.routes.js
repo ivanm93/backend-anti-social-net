@@ -1,5 +1,4 @@
-import { Router } from "express";
-
+import { Router } from "express"
 import {
     getPosts,
     getPostById,
@@ -9,6 +8,7 @@ import {
     addTagToPost,
     removeTagFromPost,
     addImageToPost,
+    toggleLikePost,
     removeImageFromPost
 } from "../controllers/post.controller.js";
 
@@ -30,6 +30,7 @@ router.post(
     validatePost,
     createPost
 );
+router.post("/:id/like", validateObjectId, toggleLikePost) 
 
 router.put(
     "/:id",

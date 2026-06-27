@@ -10,6 +10,30 @@ export const getPosts = async (req,res)=>{
     res.json(posts);
 };
 
+export const toggleLikePost = async (req, res) => {
+  try {
+    const { userId } = req.body
+    const post = await Post.findById(req.params.id)
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post no encontrado' })
+    }
+
+    const alreadyLiked = post.likes.includes(userId)
+
+    if (alreadyLiked) {
+      post.likes.pull(userId)
+    } else {
+      post.likes.push(userId)
+    }
+
+    await post.save()
+    res.status(200).json(post)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
 export const getPostById = async (req,res)=>{
 
     const post = await Post.findById(req.params.id)
